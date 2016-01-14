@@ -1,0 +1,21 @@
+import mongoose from 'mongoose';
+import UserSchema from './User';
+const Schema = mongoose.Schema;
+
+const SubscriptionSchema = new Schema({
+  updatedAt: { type: Date },
+  subscribedId: Schema.Types.ObjectId,
+  subscribedType: String,
+  ownerId: Schema.Types.ObjectId,
+});
+
+SubscriptionSchema
+.virtual('createdAt')
+.get(function () {
+  return this._id.getTimestamp();
+});
+
+SubscriptionSchema.set('toJSON', { virtuals: true, getters: true });
+SubscriptionSchema.set('toObject', { virtuals: true, getters: true });
+
+module.exports = mongoose.model('Subscription', SubscriptionSchema);
