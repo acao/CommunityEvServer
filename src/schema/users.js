@@ -15,7 +15,7 @@ import { BookmarkType } from './bookmarks';
 import { SubscriptionType } from './subscriptions';
 const users = new Users();
 
-export const userType = new GraphQLObjectType({
+export const UserType = new GraphQLObjectType({
   name: 'User',
   description: 'Representation of public user data.',
   fields: () => ({
@@ -52,7 +52,7 @@ export const userType = new GraphQLObjectType({
 
 export const self = {
   description: 'Information about the currently logged in user.',
-  type: userType,
+  type: UserType,
   resolve(parentValue, _, { rootValue: { session } }) {
     if(session.passport) {
       return session.passport.user;
@@ -63,7 +63,7 @@ export const self = {
 
 export const listUsers = {
   description: 'Information about all users.',
-  type: new GraphQLList(userType),
+  type: new GraphQLList(UserType),
   resolve(parentValue, _, { rootValue: { session } }) {
     return users.getList();
   }
@@ -71,7 +71,7 @@ export const listUsers = {
 
 export const updateEmail = {
   description: 'Update mail address of the currently logged in user.',
-  type: userType,
+  type: UserType,
   args: {
     mail: {
       description: 'Non empty, valid E-Mail address.',
@@ -88,7 +88,7 @@ export const updateEmail = {
 
 export const signup = {
   description: 'Register a new user account. Returns newly created user or null if username is taken.',
-  type: userType,
+  type: UserType,
   args: {
     username: {
       description: 'Username for new account.',
@@ -99,13 +99,13 @@ export const signup = {
       type: new GraphQLPassword(6)
     }
   },
-  resolve(parentValue, _, { rootValue: { data } }) {
+  resolve(parentValue, _, { rootValue: { session } }) {
     return users.signup(_.username, _.password);
   }
 }
 export const login = {
   description: 'Login to a user account. Returns newly created user or null if username is taken.',
-  type: userType,
+  type: UserType,
   args: {
     username: {
       description: 'Username for account.',

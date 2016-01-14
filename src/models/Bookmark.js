@@ -18,4 +18,4 @@ BookmarkSchema
 BookmarkSchema.set('toJSON', { virtuals: true, getters: true });
 BookmarkSchema.set('toObject', { virtuals: true, getters: true });
 
-module.exports = mongoose.model('Bookmark', BookmarkSchema);
+export default mongoose.model('Bookmark', BookmarkSchema);

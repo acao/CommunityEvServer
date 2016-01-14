@@ -14,7 +14,10 @@
     "testonly": "mocha $npm_package_options_mocha",
     "t": "mocha --require resources/mocha-bootload",
     "lint": "eslint src tools",
-    "check": "flow check",
+    "check": "flow check"
+  },
+  "options": {
+    "mocha": "--require tools/mocha-bootload src/**/__tests__/**/*.js"
   },
   "license": "ISC",
   "dependencies": {
@@ -43,7 +46,8 @@
     "babel-loader": "^6.2.1",
     "babel-polyfill": "^6.3.14",
     "babel-preset-es2015": "^6.3.13",
-    "babel-preset-stage-1": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "babel-register": "^6.4.3",
     "chai": "^3.4.1",
     "chai-subset": "^1.2.0",
     "coveralls": "^2.11.6",

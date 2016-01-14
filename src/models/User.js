@@ -7,8 +7,8 @@ const UserSchema = new Schema({
   username: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },
   updatedAt: { type: Date },
-  bookmarks: [Bookmark],
-  subscriptions: [Subscription],
+  // bookmarks: [Bookmark],
+  // subscriptions: [Subscription],
   mail: { type: String }
 });
 
@@ -49,4 +49,4 @@ UserSchema.methods.validPassword = function(password) {
   });
 };
 
-module.exports = mongoose.model('User', UserSchema);
+export default mongoose.model('User', UserSchema);

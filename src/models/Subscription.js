@@ -10,12 +10,12 @@ const SubscriptionSchema = new Schema({
 });
 
 SubscriptionSchema
-.virtual('createdAt')
-.get(function () {
-  return this._id.getTimestamp();
-});
+    .virtual('createdAt')
+    .get(function () {
+      return this._id.getTimestamp();
+    });
 
 SubscriptionSchema.set('toJSON', { virtuals: true, getters: true });
 SubscriptionSchema.set('toObject', { virtuals: true, getters: true });
 
-module.exports = mongoose.model('Subscription', SubscriptionSchema);
+export default mongoose.model('Subscription', SubscriptionSchema);
