@@ -38,17 +38,33 @@ mutation CreateUser($username: String!, $password: Password!){
   }
 }
 ```
+input:
 
+```json
+{
+  "bookmarkedId": "Bob",
+  "bookmarkedType": "Bob"
+}
+```
 ### Add Bookmark
 
 ```graphql
 mutation AddBookMark($bookmarkedId: Int!, $bookmarkedType: String!){
   addBookmark(
     bookmarkedId: $bookmarkedId,
-		bookmarkedType: $bookmarkedType
-  ) {
+	bookmarkedType: $bookmarkedType
+  )
+  {
     bookmarkedId,
     bookmarkedType
   }
+}
+```
+input:
+
+```json
+{
+  "bookmarkedId": 12121212,
+  "bookmarkedType": "Event"
 }
 ```
