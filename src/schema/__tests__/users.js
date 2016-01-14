@@ -9,18 +9,18 @@ import { session } from './testHelpers';
 describe('User connections', () => {
 
   it('Signs up a user', async () => {
-    const mutation = `
+    var mutation = `
       mutation AddUser($username: String!, $password: Password!) {
          signup(username: $username, password: $password){
             username
          }
       }
     `;
-    const params = {
+    var params = {
       "username": "Bob1992",
       "password": "Bob"
     };
-    const expected = {
+    var expected = {
       "signup": {
           "username": "Bob1992",
       },
@@ -30,14 +30,14 @@ describe('User connections', () => {
     });
   });
   it('Lists users', async () => {
-    const query = `
+    var query = `
       query ListUsers {
         users{
           username
         }
       }
     `;
-    const expected = {
+    var expected = {
       "users": [
         {
           "username": "Bob1992",
