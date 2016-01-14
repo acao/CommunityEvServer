@@ -1,5 +1,7 @@
 # CommunityEvServer
-Your app description comes here.
+For the CommunityEv react native app, a backend for bookmarking, subscriptions, managing lists of events and accessing fields and edges that OG doesn't provide.
+
+[![Build Status](https://travis-ci.org/acao/CommunityEvServer.svg?branch=master)](https://travis-ci.org/acao/CommunityEvServer)
 
 ## Usage
 
