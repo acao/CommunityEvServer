@@ -1,10 +1,10 @@
 import mongoose from 'mongoose';
-import UserSchema from './User';
+import { instantiateModel } from './';
 const Schema = mongoose.Schema;
 
 const SubscriptionSchema = new Schema({
   updatedAt: { type: Date },
-  subscribedId: Schema.Types.ObjectId,
+  subscribedId: String,
   subscribedType: String,
   ownerId: Schema.Types.ObjectId,
 });
@@ -18,4 +18,4 @@ SubscriptionSchema
 SubscriptionSchema.set('toJSON', { virtuals: true, getters: true });
 SubscriptionSchema.set('toObject', { virtuals: true, getters: true });
 
-export default mongoose.model('Subscription', SubscriptionSchema);
+export default instantiateModel('Subscription', SubscriptionSchema);

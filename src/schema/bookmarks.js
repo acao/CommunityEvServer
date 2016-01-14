@@ -25,8 +25,8 @@ const bookmarkType = new GraphQLObjectType({
       type: GraphQLInt,
     },
     bookmarkedId: {
-      description: 'ID of the bookmarked item',
-      type: GraphQLInt,
+      description: 'OG ID of the bookmarked item',
+      type: GraphQLString,
     },
     bookmarkedType: {
       description: 'The bookmark type. Page or Event.',
@@ -62,7 +62,9 @@ export const listBookmarks = {
       type: GraphQLInt,
     }
   },
-  resolve: (root, filterObj) => bookmarks.getAll(filterObj),
+  resolve(root, filterObj) {
+    return bookmarks.getAll(filterObj);
+  }
 };
 
 export const getBookmarkById = {
@@ -74,7 +76,9 @@ export const getBookmarkById = {
       type: new GraphQLNonNull(GraphQLInt),
     }
   },
-  resolve: (root, {id}) => bookmarks.getById(id)
+  resolve(root, {id}) {
+    return bookmarks.getById(id);
+  }
 };
 
 
@@ -84,14 +88,16 @@ export const addBookmark = {
   args: {
     bookmarkedId: {
       description: 'ID of the bookmarked item',
-      type: new GraphQLNonNull(GraphQLString),
+      type: GraphQLString,
     },
     bookmarkedType: {
       description: 'The bookmark type. Page or Event.',
       type: GraphQLString,
     },
   },
-  resolve: (parentValue, _, { rootValue: { data } }) => bookmarks.create(_.bookmarkedId, _.bookmarkedType),
+  resolve(parentValue, _, { rootValue: { session } }) {
+    return bookmarks.create(_.bookmarkedId, _.bookmarkedType);
+  }
 }
 export const deleteBookmark = {
   description: 'Remove a bookmark',
@@ -102,7 +108,7 @@ export const deleteBookmark = {
       type: new GraphQLNonNull(GraphQLInt),
     },
   },
-  resolve(parentValue, _, { rootValue: { data } }) {
+  resolve(parentValue, _, { rootValue: { session } }) {
     return bookmarks.remove({_id: _.id});
   }
 }

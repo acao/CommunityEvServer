@@ -13,12 +13,11 @@ class Bookmarks {
   getAllForItem(bookmarkedId) {
     return Bookmark.find({ bookmarkedId }).exec()
   }
-  create(bookmarkedId, bookmarkedType) {
-    var bookmark = new Bookmark({bookmarkedId, bookmarkedType});
-    return bookmark.save();
+  create(bookmarkedId, bookmarkedType, done) {
+    return Bookmark.create({bookmarkedId, bookmarkedType, done});
   }
   remove(id) {
-    return Bookmark.remove({ _id: id });
+    return Bookmark.remove({ _id: id }).exec();
   }
 }
 

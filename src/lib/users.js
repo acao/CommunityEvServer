@@ -2,7 +2,7 @@ import User from '../models/User';
 
 class Users {
   getList() {
-    const getUsers = User.find({}).exec();
+    const getUsers = User.find().exec();
     return getUsers;
   }
 

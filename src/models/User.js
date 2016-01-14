@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import Bookmark from './Bookmark';
 import Subscription from './Subscription';
+import { instantiateModel } from './';
 const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   username: { type: String, required: true, index: { unique: true } },
@@ -49,4 +50,4 @@ UserSchema.methods.validPassword = function(password) {
   });
 };
 
-export default mongoose.model('User', UserSchema);
+export default instantiateModel('User', UserSchema);

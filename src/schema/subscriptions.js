@@ -11,11 +11,12 @@ import {
 import {
   GraphQLDateTime,
 } from 'graphql-custom-types';
+
 import Subscriptions from '../lib/subscriptions';
 
 const subscriptions = new Subscriptions();
 
-const subscriptionType = new GraphQLObjectType({
+export const SubscriptionType = new GraphQLObjectType({
   name: 'Subscription',
   description: 'A subscription.',
   fields: () => ({
@@ -25,7 +26,7 @@ const subscriptionType = new GraphQLObjectType({
     },
     subscribedId: {
       description: 'OG ID of the subscribed object',
-      type: GraphQLInt,
+      type: GraphQLString,
     },
     subscribedType: {
       description: 'The subscribed object type. OG. Page, User or Event',
@@ -46,11 +47,28 @@ const subscriptionType = new GraphQLObjectType({
   }),
 });
 
-export const SubscriptionType = subscriptionType;
+export const ListSubscriptions = {
+  description: 'List bookmarks with filter',
+  type: SubscriptionType,
+  args: {
+    ownerId: {
+      description: 'ID of the bookmark to retrieve.',
+      type: GraphQLString,
+    },
+    subscribedId: {
+      description: 'ID of the bookmarked item',
+      type: GraphQLString,
+    }
+  },
+  resolve(root, filterObj) {
+    return subscriptions.getAll(filterObj);
 
-const getById = {
+  }
+};
+
+export const getSubscriptionById = {
   description: 'Get a subscription by id.',
-  type: subscriptionType,
+  type: SubscriptionType,
   args: {
     id: {
       description: 'ID of the subscription to retrieve.',
@@ -60,4 +78,20 @@ const getById = {
   resolve: (root, {id}) => subscriptions.getById(id)
 };
 
-export const getSubscriptionById = getById;
+export const addSubscription = {
+  description: 'Add a subscription',
+  type: SubscriptionType,
+  args: {
+    subscribedId: {
+      description: 'ID of the subscriptioned item',
+      type: new GraphQLNonNull(GraphQLString),
+    },
+    subscribedType: {
+      description: 'The subscription type. Page or Event.',
+      type: new GraphQLNonNull(GraphQLString),
+    },
+  },
+  resolve(parentValue, _, { rootValue: { session } }) {
+    return subscriptions.create(_.subscribedId, _.subscribedType);
+  }
+}

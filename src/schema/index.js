@@ -5,7 +5,10 @@ import {
   deleteBookmark,
   listBookmarks,
 } from './bookmarks';
-import { getSubscriptionById } from './subscriptions';
+import {
+  getSubscriptionById,
+  addSubscription,
+} from './subscriptions';
 import {
   self,
   user,
@@ -23,7 +26,7 @@ const queryType = new GraphQLObjectType({
     getSubscription: getSubscriptionById,
     self,
     users: listUsers,
-    bookmarks: listBookmarks,
+    bookmarks: listBookmarks
   })
 });
 
@@ -36,6 +39,7 @@ const mutationType = new GraphQLObjectType({
     updateEmail,
     addBookmark,
     deleteBookmark,
+    addSubscription
   })
 });
 
