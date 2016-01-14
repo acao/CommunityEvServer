@@ -10,7 +10,7 @@
     "copy": "babel-node --eval \"require('./tools/copy').default().catch(err => console.error(err.stack))\"",
     "bundle": "babel-node --eval \"require('./tools/bundle').default().catch(err => console.error(err.stack))\"",
     "start": "babel-node --eval \"require('./tools/start').default().catch(err => console.error(err.stack))\"",
-    "test": "npm run check && npm run testonly",
+    "test": "npm run testonly",
     "testonly": "mocha $npm_package_options_mocha",
     "t": "mocha --require resources/mocha-bootload",
     "lint": "eslint src tools",
