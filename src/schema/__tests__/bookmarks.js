@@ -2,13 +2,9 @@ import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { Schema as CommunityEventsSchema } from '../';
 import { graphql } from 'graphql';
-import { session } from './testHelpers';
+import { session, exampleBookmark } from './testHelpers';
 // 80+ char lines are useful in describe/it, so ignore in this file.
 /*eslint-disable max-len */
-const exampleBookmark = {
-  "bookmarkedId": "12345234324343",
-  "bookmarkedType": "Event"
-}
 
 describe('Bookmark fields', () => {
   it('Creates a bookmark', async () => {
@@ -38,11 +34,26 @@ describe('Bookmark fields', () => {
        }
       }
     `;
-    var params = exampleBookmark;
     var expected = {bookmarks: [exampleBookmark]};
 
     graphql(CommunityEventsSchema, query, { session }).then(result => {
       expect(result).to.deep.equal({data: expected});
     });
   });
+  // it('List bookmarks by owner', async () => {
+  //   var query = `
+  //     query ListBookmarks($ownerId: Int!) {
+  //      bookmarks(ownerId: $ownerId){
+  //        bookmarkedId,
+  //        bookmarkedType
+  //      }
+  //     }
+  //   `;
+  //   var params = exampleUser;
+  //   var expected = {bookmarks: [exampleBookmark]};
+  //
+  //   graphql(CommunityEventsSchema, query, { session }, params).then(result => {
+  //     expect(result).to.deep.equal({data: expected});
+  //   });
+  // });
 });

@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { Schema as CommunityEventsSchema } from '../';
 import { graphql } from 'graphql';
-import { session } from './testHelpers';
+import { session, exampleUser } from './testHelpers';
 // 80+ char lines are useful in describe/it, so ignore in this file.
 /*eslint-disable max-len */
 
@@ -16,13 +16,10 @@ describe('User mutations', () => {
          }
       }
     `;
-    var params = {
-      "username": "Bob1992",
-      "password": "Bob"
-    };
+    var params = defaultUser;
     var expected = {
       "signup": {
-          "username": "Bob1992",
+          "username": defaultUser.username
       },
     };
     graphql(CommunityEventsSchema, mutation, { session }, params).then(result => {
@@ -38,13 +35,10 @@ describe('User mutations', () => {
          }
       }
     `;
-    var params = {
-      "username": "Bob1992",
-      "password": "Bob"
-    };
+    var params = defaultUser;
     var expected = {
       "login": {
-          "username": "Bob1992",
+          "username": defaultUser.username,
       },
     };
     graphql(CommunityEventsSchema, mutation, { session }, params).then(result => {
@@ -62,7 +56,7 @@ describe('User mutations', () => {
     var expected = {
       "users": [
         {
-          "username": "Bob1992",
+          "username": defaultUser.username,
         }
       ],
     };
@@ -70,20 +64,20 @@ describe('User mutations', () => {
       expect(result).to.deep.equal({data: expected});
     });
   });
+  // Requires auth
   // it('Update email', async () => {
+  //     var param = { mail: 'bob@bob.com'}
   //     var query = `
-  //       mutation SetEmail($email) {
-  //         updateEmail{
+  //       mutation SetEmail($mail: String!) {
+  //         updateEmail(mail: $mail){
   //           mail
   //         }
   //       }
   //     `;
   //     var expected = {
-  //       "mail": {
-  //           "username": "Bob1992",
-  //         }
+  //       "updateEmail": param
   //     };
-  //     graphql(CommunityEventsSchema, query, { session }).then(result => {
+  //     graphql(CommunityEventsSchema, query, { session }, param).then(result => {
   //         expect(result).to.deep.equal({data: expected});
   //     });
   //   });

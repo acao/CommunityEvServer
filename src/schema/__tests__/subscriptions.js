@@ -2,13 +2,9 @@ import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { Schema as CommunityEventsSchema } from '../';
 import { graphql } from 'graphql';
-import { session } from './testHelpers';
+import { session , exampleSubscription } from './testHelpers';
 // 80+ char lines are useful in describe/it, so ignore in this file.
 /*eslint-disable max-len */
-const exampleSubscription = {
-  "subscribedId": "12345234324343",
-  "subscribedType": "Event"
-}
 
 describe('Subscription fields', () => {
   it('Creates a subscription', async () => {

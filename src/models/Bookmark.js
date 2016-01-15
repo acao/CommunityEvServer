@@ -1,7 +1,6 @@
-import mongoose from 'mongoose';
+import { Schema }from 'mongoose';
 import User from './User';
 import {instantiateModel } from './';
-const Schema = mongoose.Schema;
 
 const BookmarkSchema = new Schema({
   updatedAt: { type: Date },

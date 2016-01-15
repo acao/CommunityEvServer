@@ -93,7 +93,7 @@ export const addBookmark = {
     bookmarkedType: {
       description: 'The bookmark type. Page or Event.',
       type: GraphQLString,
-    },
+    }
   },
   resolve(parentValue, _, { rootValue: { session } }) {
     return bookmarks.create(_.bookmarkedId, _.bookmarkedType);

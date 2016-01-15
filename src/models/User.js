@@ -1,9 +1,8 @@
-import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 import Bookmark from './Bookmark';
 import Subscription from './Subscription';
 import { instantiateModel } from './';
-const Schema = mongoose.Schema;
 const UserSchema = new Schema({
   username: { type: String, required: true, index: { unique: true } },
   password: { type: String, required: true },

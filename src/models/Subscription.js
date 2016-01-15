@@ -1,6 +1,5 @@
-import mongoose from 'mongoose';
+import { Schema } from 'mongoose';
 import { instantiateModel } from './';
-const Schema = mongoose.Schema;
 
 const SubscriptionSchema = new Schema({
   updatedAt: { type: Date },
